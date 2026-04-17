@@ -8,7 +8,6 @@ public class ManejadorTeclas : MonoBehaviour
     public GameObject prefabBase;
     public Sprite[] spritesTeclas; 
     public Transform[] puntosAparicion;
-]
     public float tiempoTransicion = 0.3f;
     public float tiempoEspera = 1.0f;
     public float tiempoReaccion = 1.0f;
