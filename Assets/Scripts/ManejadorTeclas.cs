@@ -31,7 +31,7 @@ public class ManejadorTeclas : MonoBehaviour
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
         StartCoroutine(CicloDeJuego());
         Debug.Log($"Objeto de script"+ this.gameObject.name);
-        posicion = new Vector3(-1.5f,0,0);
+        posicion = new Vector3(-1.05f,-0.75f,-1.16f);
         jugador.transform.position = posicion;
     }
 
@@ -45,6 +45,8 @@ public class ManejadorTeclas : MonoBehaviour
 
     IEnumerator Ronda()
     {
+        posicion.x = -1.05f;
+        jugador.transform.position = posicion;
         jugador.Transicion();
 
         yield return new WaitForSeconds(tiempoTransicion);
@@ -89,8 +91,7 @@ public class ManejadorTeclas : MonoBehaviour
             posicion.x = 0.9f;
             jugador.transform.position = posicion;
             jugador.Atacar();
-            posicion.x = -1.5f;
-            jugador.transform.position = posicion;
+            
 
 
         }
