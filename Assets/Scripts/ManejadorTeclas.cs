@@ -22,6 +22,7 @@ public class ManejadorTeclas : MonoBehaviour
     private GameObject teclaCorrecta;
 
     public Jugador jugador;
+    Vector3 posicion;
 
     private KeyCode[] teclas = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
 
@@ -30,6 +31,8 @@ public class ManejadorTeclas : MonoBehaviour
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
         StartCoroutine(CicloDeJuego());
         Debug.Log($"Objeto de script"+ this.gameObject.name);
+        posicion = new Vector3(-1.5f,0,0);
+        jugador.transform.position = posicion;
     }
 
     IEnumerator CicloDeJuego()
@@ -83,8 +86,13 @@ public class ManejadorTeclas : MonoBehaviour
         {
             Debug.Log("¡BIEN! " + teclaGanadora);
             audioSource.PlayOneShot(sonidos[0]);
+            posicion.x = 0.9f;
+            jugador.transform.position = posicion;
             jugador.Atacar();
-            
+            posicion.x = -1.5f;
+            jugador.transform.position = posicion;
+
+
         }
         else
         {
