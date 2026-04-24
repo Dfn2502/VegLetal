@@ -6,7 +6,7 @@ public class CorazonUI : MonoBehaviour
      Animator animator;
     public void Update()
     {
-        animator = GameObject.Find("vida").GetComponent(Animator);
+
     }
     public void PerderVida()
     {
