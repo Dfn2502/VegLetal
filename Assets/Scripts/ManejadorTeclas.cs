@@ -8,8 +8,6 @@ public class ManejadorTeclas : MonoBehaviour
     public GameObject prefabBase;
     public Sprite[] spritesTeclas; 
     public Transform[] puntosAparicion;
-    public float tiempoTransicion = 0.3f;
-    public float tiempoEspera = 1.0f;
     public float tiempoReaccion = 1.0f;
 
 
@@ -23,12 +21,14 @@ public class ManejadorTeclas : MonoBehaviour
 
     public Jugador jugador;
     Vector3 posicion;
+    Animator animator;
 
     private KeyCode[] teclas = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
 
     void Start()
     {
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
+        animator = jugador.GetComponentInChildren<Animator>();
         StartCoroutine(CicloDeJuego());
         Debug.Log($"Objeto de script"+ this.gameObject.name);
         posicion = new Vector3(-1.05f,-0.75f,-1.16f);
@@ -49,12 +49,12 @@ public class ManejadorTeclas : MonoBehaviour
         jugador.transform.position = posicion;
         jugador.Transicion();
 
-        yield return new WaitForSeconds(tiempoTransicion);
+        yield return new WaitForSeconds(0.3f);
 
         jugador.Espera();
         GenerarTeclas();
 
-        yield return new WaitForSeconds(tiempoEspera);
+        yield return new WaitForSeconds(1f);
 
         jugador.Reaccion();
         ActivarSenal();
@@ -84,14 +84,14 @@ public class ManejadorTeclas : MonoBehaviour
             yield return null;
         }
 
+        posicion.x = 0.9f;
+        jugador.transform.position = posicion;
+        jugador.Atacar();
+        yield return new WaitForSeconds(2f);
         if (inputDetectado && acierto)
         {
-            Debug.Log("¡BIEN! " + teclaGanadora);
             audioSource.PlayOneShot(sonidos[0]);
-            posicion.x = 0.9f;
-            jugador.transform.position = posicion;
-            jugador.Atacar();
-            
+            jugador.Idle();
 
 
         }
@@ -100,13 +100,13 @@ public class ManejadorTeclas : MonoBehaviour
             Debug.Log("Fallaste... era: " + teclaGanadora);
             audioSource.PlayOneShot(sonidos[1]);
             jugador.RecibirDanio();
+            yield return new WaitForSeconds(1f);
         }
 
         LimpiarRonda();
 
         yield return new WaitForSeconds(0.8f);
 
-        jugador.Idle();
     }
 
     void GenerarTeclas()
