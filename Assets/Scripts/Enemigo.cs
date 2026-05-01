@@ -24,7 +24,6 @@ public class Champiñon : MonoBehaviour
     public void Espera()
     {
 
-        audioSource.PlayOneShot(sonidos[3]);
         componenteAnimator.SetInteger("Estado", 2);
     }
 

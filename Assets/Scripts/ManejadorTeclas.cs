@@ -45,13 +45,14 @@ public class ManejadorTeclas : MonoBehaviour
 
     IEnumerator Ronda()
     {
+
         posicion.x = -1.05f;
         jugador.transform.position = posicion;
         jugador.Transicion();
 
         yield return new WaitForSeconds(0.3f);
-
         jugador.Espera();
+
         GenerarTeclas();
 
         yield return new WaitForSeconds(1f);

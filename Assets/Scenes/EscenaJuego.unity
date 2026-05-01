@@ -1295,7 +1295,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1589,8 +1589,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 00f61547973abb54aa56278441ae984a, type: 3}
   - {fileID: 8300000, guid: 1809d453a5ad3004a8a7699273c9a6ea, type: 3}
   - {fileID: 8300000, guid: ff2485b4c5470184e8be464ca698ab0b, type: 3}
-  - {fileID: 8300000, guid: dc01ee542a9f9f44f8315f99fb867d14, type: 3}
-  audioSource: {fileID: 1488321043}
+  audioSource: {fileID: 2028885492}
   jugador: {fileID: 1844203443}
 --- !u!1 &1887800779
 GameObject:
@@ -1841,7 +1840,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
