@@ -6,10 +6,13 @@ public class Jugador : MonoBehaviour
     private Animator componenteAnimator;
     public AudioClip[] sonidos;
     public AudioSource audioSource;
+    private bool yaEnEspera = false;
+
 
     void Start()
     {
         componenteAnimator = GetComponentInChildren<Animator>();
+
     }
 
     public void Idle()
@@ -24,9 +27,22 @@ public class Jugador : MonoBehaviour
 
     public void Espera()
     {
+        if (yaEnEspera) return;
+
+        yaEnEspera = true;
+
+        Debug.Log("ESPERA REAL");
 
         audioSource.PlayOneShot(sonidos[3]);
         componenteAnimator.SetInteger("Estado", 2);
+
+        StartCoroutine(ResetEspera());
+    }
+
+    IEnumerator ResetEspera()
+    {
+        yield return new WaitForSeconds(0.5f);
+        yaEnEspera = false;
     }
 
     public void Reaccion()
@@ -44,9 +60,5 @@ public class Jugador : MonoBehaviour
     {
         audioSource.PlayOneShot(sonidos[4]);
         componenteAnimator.SetInteger("Estado", 5);
-    }
-    public void SonidoReaccion()
-    {
-        audioSource.PlayOneShot(sonidos[3]);
     }
 }
