@@ -1,15 +1,36 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; 
 
 public class CorazonUI : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-     Animator animator;
-    public void Update()
-    {
+    public List<GameObject> corazones = new List<GameObject>();
 
-    }
     public void PerderVida()
     {
-        animator.Play("Vida_Rompiendose");
+        if (corazones.Count > 0)
+        {
+            GameObject ultimo = corazones[corazones.Count - 1];
+            corazones.RemoveAt(corazones.Count - 1);
+
+            StartCoroutine(ParpadearYDestruir(ultimo));
+        }
+    }
+
+    private IEnumerator ParpadearYDestruir(GameObject corazon)
+    {
+        Image img = corazon.GetComponent<Image>();
+
+        for (int i = 0; i < 3; i++)
+        {
+            img.color = Color.white;
+            yield return new WaitForSeconds(0.1f);
+
+            img.color = Color.red;
+            yield return new WaitForSeconds(0.1f);
+        }
+
+        Destroy(corazon);
     }
 }

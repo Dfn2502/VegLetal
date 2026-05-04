@@ -21,15 +21,13 @@ public class ManejadorTeclas : MonoBehaviour
 
     public Jugador jugador;
     Vector3 posicion;
-    Animator animator;
+
+    public Champiñon enemigo;
 
     private KeyCode[] teclas = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
 
     void Start()
     {
-        jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
-        animator = jugador.GetComponentInChildren<Animator>();
-        
         posicion = new Vector3(-1.05f,-0.75f,-1.16f);
         jugador.transform.position = posicion;
         StartCoroutine(CicloDeJuego());
@@ -50,16 +48,35 @@ public class ManejadorTeclas : MonoBehaviour
 
         jugador.transform.position = destino;
     }
+    IEnumerator MoverEnemigo(Vector3 destino, float velocidad)
+    {
+        while (Vector3.Distance(enemigo.transform.position, destino) > 0.01f)
+        {
+            enemigo.transform.position = Vector3.MoveTowards(
+                enemigo.transform.position,
+                destino,
+                velocidad * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        enemigo.transform.position = destino;
+    }
     IEnumerator CicloDeJuego()
     {
-        while (true)
+        while (!jugador.estaMuerto)
         {
             yield return StartCoroutine(Ronda());
         }
+
     }
 
     IEnumerator Ronda()
     {
+
+        if (jugador.estaMuerto)
+            yield break;
 
         posicion.x = -1.05f;
         yield return StartCoroutine(MoverJugador(posicion, 20f));
@@ -79,7 +96,7 @@ public class ManejadorTeclas : MonoBehaviour
         bool acierto = false;
         bool inputDetectado = false;
 
-        while (tiempo < tiempoReaccion)
+        while (tiempo < tiempoReaccion && !jugador.estaMuerto)
         {
             if (Input.GetKeyDown(KeyCode.Q) ||
                 Input.GetKeyDown(KeyCode.W) ||

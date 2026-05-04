@@ -737,6 +737,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7de743671bf71fe4889828b3eaaa7123, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CorazonUI
+  corazones:
+  - {fileID: 417600854}
+  - {fileID: 86529366}
+  - {fileID: 1956349078}
 --- !u!4 &504000063
 Transform:
   m_ObjectHideFlags: 0
@@ -1524,7 +1528,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 096c0320e35049647964682216987761, type: 3}
   - {fileID: 8300000, guid: ff2485b4c5470184e8be464ca698ab0b, type: 3}
   - {fileID: 8300000, guid: 149698253f4233d47914663cb5fe403e, type: 3}
+  - {fileID: 8300000, guid: dc01ee542a9f9f44f8315f99fb867d14, type: 3}
   audioSource: {fileID: 1488321043}
+  estaMuerto: 0
 --- !u!1 &1863432301
 GameObject:
   m_ObjectHideFlags: 0
@@ -1591,6 +1597,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ff2485b4c5470184e8be464ca698ab0b, type: 3}
   audioSource: {fileID: 2028885492}
   jugador: {fileID: 1844203443}
+  enemigo: {fileID: 2146738836}
 --- !u!1 &1887800779
 GameObject:
   m_ObjectHideFlags: 0

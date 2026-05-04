@@ -7,11 +7,15 @@ public class Jugador : MonoBehaviour
     public AudioClip[] sonidos;
     public AudioSource audioSource;
     private bool yaEnEspera = false;
-
+    CorazonUI corazonUI;
+    int vidas;
+    public bool estaMuerto = false;
 
     void Start()
     {
         componenteAnimator = GetComponentInChildren<Animator>();
+        corazonUI = FindObjectOfType<CorazonUI>();
+        vidas = 3;
 
     }
 
@@ -58,7 +62,30 @@ public class Jugador : MonoBehaviour
 
     public void RecibirDanio()
     {
+        corazonUI.PerderVida();
+        vidas--;
         audioSource.PlayOneShot(sonidos[4]);
         componenteAnimator.SetInteger("Estado", 5);
+        if (vidas <= 0)
+        {
+            Muerte();
+        }
+    }
+    public void Muerte()
+    {
+        if (estaMuerto) return;
+        estaMuerto = true;
+
+        audioSource.PlayOneShot(sonidos[5]);
+        componenteAnimator.SetInteger("Estado", 6);
+
+        StartCoroutine(MorirYCambiarEscena());
+    }
+
+    IEnumerator MorirYCambiarEscena()
+    {
+        yield return new WaitForSeconds(4.5f);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
     }
 }
