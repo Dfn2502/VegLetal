@@ -29,12 +29,27 @@ public class ManejadorTeclas : MonoBehaviour
     {
         jugador = GameObject.FindGameObjectWithTag("Player").GetComponent<Jugador>();
         animator = jugador.GetComponentInChildren<Animator>();
-        StartCoroutine(CicloDeJuego());
-        Debug.Log($"Objeto de script"+ this.gameObject.name);
+        
         posicion = new Vector3(-1.05f,-0.75f,-1.16f);
         jugador.transform.position = posicion;
+        StartCoroutine(CicloDeJuego());
     }
 
+    IEnumerator MoverJugador(Vector3 destino, float velocidad)
+    {
+        while (Vector3.Distance(jugador.transform.position, destino) > 0.01f)
+        {
+            jugador.transform.position = Vector3.MoveTowards(
+                jugador.transform.position,
+                destino,
+                velocidad * Time.deltaTime
+            );
+
+            yield return null;
+        }
+
+        jugador.transform.position = destino;
+    }
     IEnumerator CicloDeJuego()
     {
         while (true)
@@ -47,7 +62,7 @@ public class ManejadorTeclas : MonoBehaviour
     {
 
         posicion.x = -1.05f;
-        jugador.transform.position = posicion;
+        yield return StartCoroutine(MoverJugador(posicion, 20f));
         jugador.Transicion();
 
         yield return new WaitForSeconds(0.3f);
@@ -86,7 +101,7 @@ public class ManejadorTeclas : MonoBehaviour
         }
 
         posicion.x = 0.9f;
-        jugador.transform.position = posicion;
+        yield return StartCoroutine(MoverJugador(posicion, 20f));
         jugador.Atacar();
         yield return new WaitForSeconds(2f);
         if (inputDetectado && acierto)
