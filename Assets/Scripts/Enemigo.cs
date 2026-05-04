@@ -10,14 +10,6 @@ public class Champiñon : MonoBehaviour
     {
         componenteAnimator = GetComponentInChildren<Animator>(true);
 
-        if (componenteAnimator == null)
-        {
-            Debug.LogError("NO se encontró Animator en hijos de Champiñon");
-        }
-        else
-        {
-            Debug.Log("Animator encontrado correctamente: " + componenteAnimator.name);
-        }
     }
 
     public void Idle()
