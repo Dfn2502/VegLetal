@@ -1,21 +1,72 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class CorazonUI : MonoBehaviour
 {
-    public List<GameObject> corazones = new List<GameObject>();
+    public GameObject prefabCorazonEnemigo;
+    public GameObject prefabCorazon;
 
-    public void PerderVida()
+    public Transform contenedorEnemigo;
+    public Transform contenedorJugador;
+
+    List<GameObject> corazonesEnemigo = new List<GameObject>();
+    List<GameObject> corazonesJugador = new List<GameObject>();
+
+    float separacion = 115f;
+
+
+    public void MostrarCorazonesJugador(int cantidad)
     {
-        if (corazones.Count > 0)
-        {
-            GameObject ultimo = corazones[corazones.Count - 1];
-            corazones.RemoveAt(corazones.Count - 1);
+        LimpiarJugador();
 
-            StartCoroutine(ParpadearYDestruir(ultimo));
+        for (int i = 0; i < cantidad; i++)
+        {
+            GameObject c = Instantiate(prefabCorazon, contenedorJugador, false);
+            corazonesJugador.Add(c);
+
+            RectTransform rt = c.GetComponent<RectTransform>();
+            rt.localScale = Vector3.one;
+            rt.anchoredPosition = new Vector2(i * separacion, 0);
         }
+    }
+
+    public void MostrarCorazonesEnemigo(int cantidad)
+    {
+        LimpiarEnemigo();
+
+        for (int i = 0; i < cantidad; i++)
+        {
+            GameObject c = Instantiate(prefabCorazonEnemigo, contenedorEnemigo, false);
+            corazonesEnemigo.Add(c);
+
+            RectTransform rt = c.GetComponent<RectTransform>();
+            rt.localScale = Vector3.one;
+            rt.anchoredPosition = new Vector2(-i * separacion, 0);
+        }
+    }
+
+    public void QuitarVidaJugador()
+    {
+        if (corazonesJugador.Count == 0) return;
+
+        GameObject ultimo = corazonesJugador[^1];
+        corazonesJugador.RemoveAt(corazonesJugador.Count - 1);
+
+        StartCoroutine(ParpadearYDestruir(ultimo));
+    }
+
+    public void QuitarVidaEnemigo()
+    {
+        if (corazonesEnemigo.Count == 0) return;
+
+        GameObject ultimo = corazonesEnemigo[^1];
+        corazonesEnemigo.RemoveAt(corazonesEnemigo.Count - 1);
+
+        StartCoroutine(ParpadearYDestruir(ultimo));
     }
 
     private IEnumerator ParpadearYDestruir(GameObject corazon)
@@ -32,5 +83,21 @@ public class CorazonUI : MonoBehaviour
         }
 
         Destroy(corazon);
+    }
+
+    private void LimpiarJugador()
+    {
+        foreach (var c in corazonesJugador)
+            Destroy(c);
+
+        corazonesJugador.Clear();
+    }
+
+    private void LimpiarEnemigo()
+    {
+        foreach (var c in corazonesEnemigo)
+            Destroy(c);
+
+        corazonesEnemigo.Clear();
     }
 }

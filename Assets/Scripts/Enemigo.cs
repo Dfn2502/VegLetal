@@ -5,11 +5,12 @@ public class Champiñon : MonoBehaviour
     private Animator componenteAnimator;
     public AudioClip[] sonidos;
     public AudioSource audioSource;
-
+    public int vidasMaximas = 3;
+    public int vidasActuales;
     void Start()
     {
         componenteAnimator = GetComponentInChildren<Animator>(true);
-
+        vidasActuales = vidasMaximas;
     }
 
     public void Idle()
@@ -17,32 +18,24 @@ public class Champiñon : MonoBehaviour
         componenteAnimator.SetInteger("Estado", 0);
     }
 
-    public void Transicion()
+
+    public void Atacar()
     {
         componenteAnimator.SetInteger("Estado", 1);
     }
 
-    public void Espera()
-    {
-
-        componenteAnimator.SetInteger("Estado", 2);
-    }
-
-    public void Reaccion()
-    {
-        componenteAnimator.SetInteger("Estado", 3);
-    }
-
-    public void Atacar()
-    {
-        audioSource.PlayOneShot(sonidos[2]);
-        componenteAnimator.SetInteger("Estado", 4);
-    }
-
     public void RecibirDanio()
     {
-        audioSource.PlayOneShot(sonidos[4]);
-        componenteAnimator.SetInteger("Estado", 5);
+        vidasActuales--;
+        componenteAnimator.SetInteger("Estado", 2);
+        if(vidasActuales <= 0)
+        {
+            Muerte();
+        }
+    }
+    public void Muerte()
+    {
+        componenteAnimator.SetInteger("Estado", 3); 
     }
 
 }

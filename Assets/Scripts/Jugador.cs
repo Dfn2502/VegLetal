@@ -8,7 +8,7 @@ public class Jugador : MonoBehaviour
     public AudioSource audioSource;
     private bool yaEnEspera = false;
     CorazonUI corazonUI;
-    int vidas;
+    public int vidas;
     public bool estaMuerto = false;
 
     void Start()
@@ -62,7 +62,7 @@ public class Jugador : MonoBehaviour
 
     public void RecibirDanio()
     {
-        corazonUI.PerderVida();
+        corazonUI.QuitarVidaJugador();
         vidas--;
         audioSource.PlayOneShot(sonidos[4]);
         componenteAnimator.SetInteger("Estado", 5);

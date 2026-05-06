@@ -9,6 +9,7 @@ public class ManejadorTeclas : MonoBehaviour
     public Sprite[] spritesTeclas; 
     public Transform[] puntosAparicion;
     public float tiempoReaccion = 1.0f;
+    public CorazonUI corazonUI;
 
 
     public AudioClip[] sonidos;
@@ -21,15 +22,27 @@ public class ManejadorTeclas : MonoBehaviour
 
     public Jugador jugador;
     Vector3 posicion;
+    Vector3 posicionEnemigo;
 
-    public Champiñon enemigo;
+    public Champiñon[] enemigos;
+    private int indiceEnemigoActual = 0;
+    private Champiñon enemigo;
 
     private KeyCode[] teclas = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
 
     void Start()
     {
         posicion = new Vector3(-1.05f,-0.75f,-1.16f);
+        posicionEnemigo = new Vector3(0.955f, -0.75f, -1.10186f);
+
         jugador.transform.position = posicion;
+
+        foreach (var e in enemigos)
+            e.gameObject.SetActive(false);
+
+        CargarSiguienteEnemigo();
+
+        corazonUI.MostrarCorazonesJugador(3);
         StartCoroutine(CicloDeJuego());
     }
 
@@ -79,10 +92,13 @@ public class ManejadorTeclas : MonoBehaviour
             yield break;
 
         posicion.x = -1.05f;
+        posicionEnemigo.x = 0.955f;
+        yield return StartCoroutine(MoverEnemigo(posicionEnemigo, 20f));
         yield return StartCoroutine(MoverJugador(posicion, 20f));
         jugador.Transicion();
 
         yield return new WaitForSeconds(0.3f);
+        
         jugador.Espera();
 
         GenerarTeclas();
@@ -118,12 +134,34 @@ public class ManejadorTeclas : MonoBehaviour
         }
 
         posicion.x = 0.9f;
+        posicionEnemigo.x = -1.033f;
         yield return StartCoroutine(MoverJugador(posicion, 20f));
+        yield return StartCoroutine(MoverEnemigo(posicionEnemigo, 20f));
         jugador.Atacar();
+        enemigo.Atacar();
         yield return new WaitForSeconds(2f);
         if (inputDetectado && acierto)
         {
             audioSource.PlayOneShot(sonidos[0]);
+            enemigo.RecibirDanio();
+            corazonUI.QuitarVidaEnemigo();
+            if (enemigo.vidasActuales <= 0)
+            {
+                yield return new WaitForSeconds(2f);
+
+                enemigo.gameObject.SetActive(false);
+
+                CargarSiguienteEnemigo();
+
+            }
+            else
+            {
+                yield return new WaitForSeconds(1f);
+
+                enemigo.Idle();
+            
+            }
+            
             jugador.Idle();
 
 
@@ -133,6 +171,7 @@ public class ManejadorTeclas : MonoBehaviour
             Debug.Log("Fallaste... era: " + teclaGanadora);
             audioSource.PlayOneShot(sonidos[1]);
             jugador.RecibirDanio();
+            enemigo.Idle();
             yield return new WaitForSeconds(1f);
         }
 
@@ -195,7 +234,36 @@ public class ManejadorTeclas : MonoBehaviour
             }
         }
     }
-   
+    void CargarSiguienteEnemigo()
+    {
+        if (indiceEnemigoActual >= enemigos.Length)
+        {
+            Debug.Log("GANASTE TODO");
+            return;
+        }
+
+        if (enemigos == null || enemigos.Length == 0)
+        {
+            Debug.LogError("No hay enemigos asignados en el Inspector");
+            return;
+        }
+
+        enemigo = enemigos[indiceEnemigoActual];
+
+        if (enemigo == null)
+        {
+            Debug.LogError("El enemigo en el índice " + indiceEnemigoActual + " es NULL");
+            return;
+        }
+
+        enemigo.gameObject.SetActive(true);
+        corazonUI.MostrarCorazonesEnemigo(enemigo.vidasMaximas);
+
+        posicionEnemigo.x = 0.955f;
+        enemigo.transform.position = posicionEnemigo;
+        indiceEnemigoActual++;
+    }
+
     void LimpiarRonda()
     {
         foreach (GameObject t in teclasActivas)
