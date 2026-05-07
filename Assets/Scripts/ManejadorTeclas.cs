@@ -24,9 +24,10 @@ public class ManejadorTeclas : MonoBehaviour
     Vector3 posicion;
     Vector3 posicionEnemigo;
 
-    public Champiñon[] enemigos;
+    public GameObject[] enemigosPrefab;
     private int indiceEnemigoActual = 0;
     private Champiñon enemigo;
+    public Transform puntoSpawnEnemigo;
 
     private KeyCode[] teclas = { KeyCode.Q, KeyCode.W, KeyCode.E, KeyCode.R };
 
@@ -37,8 +38,6 @@ public class ManejadorTeclas : MonoBehaviour
 
         jugador.transform.position = posicion;
 
-        foreach (var e in enemigos)
-            e.gameObject.SetActive(false);
 
         CargarSiguienteEnemigo();
 
@@ -147,9 +146,9 @@ public class ManejadorTeclas : MonoBehaviour
             corazonUI.QuitarVidaEnemigo();
             if (enemigo.vidasActuales <= 0)
             {
-                yield return new WaitForSeconds(2f);
+                yield return new WaitForSeconds(4f);
 
-                enemigo.gameObject.SetActive(false);
+                Destroy(enemigo.gameObject);
 
                 CargarSiguienteEnemigo();
 
@@ -168,7 +167,6 @@ public class ManejadorTeclas : MonoBehaviour
         }
         else
         {
-            Debug.Log("Fallaste... era: " + teclaGanadora);
             audioSource.PlayOneShot(sonidos[1]);
             jugador.RecibirDanio();
             enemigo.Idle();
@@ -205,7 +203,6 @@ public class ManejadorTeclas : MonoBehaviour
                 teclaGanadora = teclaActual;
                 teclaCorrecta = nuevaTecla;
 
-                Debug.Log("Tecla ganadora: " + teclaGanadora);
 
                 img.color = Color.white; 
             }
@@ -236,31 +233,28 @@ public class ManejadorTeclas : MonoBehaviour
     }
     void CargarSiguienteEnemigo()
     {
-        if (indiceEnemigoActual >= enemigos.Length)
+        if (indiceEnemigoActual >= enemigosPrefab.Length)
         {
             Debug.Log("GANASTE TODO");
             return;
         }
 
-        if (enemigos == null || enemigos.Length == 0)
-        {
-            Debug.LogError("No hay enemigos asignados en el Inspector");
-            return;
-        }
+        GameObject nuevoEnemigo = Instantiate(
+            enemigosPrefab[indiceEnemigoActual],
+            puntoSpawnEnemigo.position,
+            Quaternion.identity
+        );
 
-        enemigo = enemigos[indiceEnemigoActual];
+        enemigo = nuevoEnemigo.GetComponent<Champiñon>();
 
         if (enemigo == null)
         {
-            Debug.LogError("El enemigo en el índice " + indiceEnemigoActual + " es NULL");
+            Debug.LogError("El prefab no tiene script Champiñon");
             return;
         }
 
-        enemigo.gameObject.SetActive(true);
         corazonUI.MostrarCorazonesEnemigo(enemigo.vidasMaximas);
 
-        posicionEnemigo.x = 0.955f;
-        enemigo.transform.position = posicionEnemigo;
         indiceEnemigoActual++;
     }
 
