@@ -49,6 +49,8 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   vidasMaximas: 3
   vidasActuales: 0
+  tiempoReaccion: 0.6
+  muerto: 0
 --- !u!1001 &9194834794295605169
 PrefabInstance:
   m_ObjectHideFlags: 0

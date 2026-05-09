@@ -17,8 +17,8 @@ public class ManejadorTeclas : MonoBehaviour
 
     private List<GameObject> teclasActivas = new List<GameObject>();
 
-    private KeyCode teclaGanadora;
-    private GameObject teclaCorrecta;
+    private List<KeyCode> teclasGanadoras = new List<KeyCode>();
+    private List<GameObject> teclasCorrectas = new List<GameObject>();
 
     public Jugador jugador;
     Vector3 posicion;
@@ -102,7 +102,8 @@ public class ManejadorTeclas : MonoBehaviour
 
         GenerarTeclas();
 
-        yield return new WaitForSeconds(1f);
+        float tiempoAntesSenal = enemigo.tiempoReaccion * 0.4f;
+        yield return new WaitForSeconds(tiempoAntesSenal);
 
         jugador.Reaccion();
         ActivarSenal();
@@ -110,21 +111,38 @@ public class ManejadorTeclas : MonoBehaviour
         float tiempo = 0f;
         bool acierto = false;
         bool inputDetectado = false;
+        List<KeyCode> teclasPresionadas = new List<KeyCode>();
 
-        while (tiempo < tiempoReaccion && !jugador.estaMuerto)
+        while (tiempo < enemigo.tiempoReaccion && !jugador.estaMuerto)
         {
-            if (Input.GetKeyDown(KeyCode.Q) ||
-                Input.GetKeyDown(KeyCode.W) ||
-                Input.GetKeyDown(KeyCode.E) ||
-                Input.GetKeyDown(KeyCode.R))
+            foreach (KeyCode tecla in teclas)
             {
-                inputDetectado = true;
-
-                if (Input.GetKeyDown(teclaGanadora))
+                if (Input.GetKeyDown(tecla))
                 {
-                    acierto = true;
-                }
+                    inputDetectado = true;
 
+                    if (!teclasPresionadas.Contains(tecla))
+                    {
+                        teclasPresionadas.Add(tecla);
+                    }
+                }
+            }
+
+            // Verificar si ya presionó todas las correctas
+            bool todasCorrectas = true;
+
+            foreach (KeyCode tecla in teclasGanadoras)
+            {
+                if (!teclasPresionadas.Contains(tecla))
+                {
+                    todasCorrectas = false;
+                    break;
+                }
+            }
+
+            if (todasCorrectas)
+            {
+                acierto = true;
                 break;
             }
 
@@ -132,6 +150,7 @@ public class ManejadorTeclas : MonoBehaviour
             yield return null;
         }
 
+       
         posicion.x = 0.9f;
         posicionEnemigo.x = -1.033f;
         yield return StartCoroutine(MoverJugador(posicion, 20f));
@@ -181,46 +200,55 @@ public class ManejadorTeclas : MonoBehaviour
 
     void GenerarTeclas()
     {
-        int cantidad = Random.Range(1, 5);
-        int indiceCorrecto = Random.Range(0, cantidad);
+        teclasGanadoras.Clear();
+        teclasCorrectas.Clear();
 
-        for (int i = 0; i < cantidad; i++)
+        int cantidadCorrectas = Random.Range(1, 3);
+
+        List<int> indicesUsados = new List<int>();
+
+        for(int i=0; i< teclas.Length; i++)
         {
             GameObject nuevaTecla = Instantiate(prefabBase, puntosAparicion[i]);
             nuevaTecla.transform.localPosition = Vector3.zero;
+
             teclasActivas.Add(nuevaTecla);
 
-            int randomIndex = Random.Range(0, teclas.Length);
-
-            KeyCode teclaActual = teclas[randomIndex];
-            Sprite spriteActual = spritesTeclas[randomIndex];
-
             Image img = nuevaTecla.GetComponentInChildren<Image>();
-            img.sprite = spriteActual;
+            img.sprite = spritesTeclas[i];
 
-            if (i == indiceCorrecto)
+            img.color = Color.white;
+
+            if(indicesUsados.Count < cantidadCorrectas)
             {
-                teclaGanadora = teclaActual;
-                teclaCorrecta = nuevaTecla;
+                bool seraCorrecta = Random.Range(0,2) == 0;
 
-
-                img.color = Color.white; 
-            }
-            else
-            {
-                img.color = Color.white;
+                if (seraCorrecta)
+                {
+                    teclasGanadoras.Add(teclas[i]);
+                    teclasCorrectas.Add(nuevaTecla);
+                    indicesUsados.Add(i);
+                }
             }
         }
+
+        if(teclasGanadoras.Count == 0)
+        {
+            int random = Random.Range(0, teclas.Length);
+
+            teclasGanadoras.Add(teclas[random]);
+            teclasCorrectas.Add(teclasActivas[random]);
+        }
+        
     }
 
     void ActivarSenal()
     {
-
         foreach (GameObject t in teclasActivas)
         {
             Image img = t.GetComponentInChildren<Image>();
 
-            if (t == teclaCorrecta)
+            if (teclasCorrectas.Contains(t))
             {
                 img.color = Color.green;
                 t.transform.localScale = Vector3.one * 1.2f;
@@ -230,6 +258,7 @@ public class ManejadorTeclas : MonoBehaviour
                 img.color = Color.red;
             }
         }
+        
     }
     void CargarSiguienteEnemigo()
     {

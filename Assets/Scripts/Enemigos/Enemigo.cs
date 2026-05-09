@@ -8,7 +8,7 @@ public class Champiñon : MonoBehaviour
 
     public int vidasMaximas = 3;
     public int vidasActuales;
-
+    public float tiempoReaccion = 1f;
     public bool muerto = false;
     void Start()
     {
