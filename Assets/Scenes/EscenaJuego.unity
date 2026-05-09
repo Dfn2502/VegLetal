@@ -1395,6 +1395,7 @@ MonoBehaviour:
   audioSource: {fileID: 2028885492}
   jugador: {fileID: 1844203443}
   enemigosPrefab:
+  - {fileID: 8478779591968002734, guid: a6ed6906ce79698438212cdfcdda0ac6, type: 3}
   - {fileID: 3101862656906879568, guid: 670f84b8eaac77f4c964ada0de8cef13, type: 3}
   - {fileID: 2616380456402884810, guid: 8b1e19c95c3705141aeff57b6b06adbc, type: 3}
   puntoSpawnEnemigo: {fileID: 2076119389}

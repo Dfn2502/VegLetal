@@ -82,6 +82,10 @@ public class Jugador : MonoBehaviour
         StartCoroutine(MorirYCambiarEscena());
     }
 
+    public void Victoria()
+    {
+        componenteAnimator.SetInteger("Estado", 7);
+    }
     IEnumerator MorirYCambiarEscena()
     {
         yield return new WaitForSeconds(4.5f);

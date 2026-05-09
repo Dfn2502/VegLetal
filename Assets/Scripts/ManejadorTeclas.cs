@@ -128,7 +128,6 @@ public class ManejadorTeclas : MonoBehaviour
                 }
             }
 
-            // Verificar si ya presionó todas las correctas
             bool todasCorrectas = true;
 
             foreach (KeyCode tecla in teclasGanadoras)
@@ -162,6 +161,7 @@ public class ManejadorTeclas : MonoBehaviour
         {
             audioSource.PlayOneShot(sonidos[0]);
             enemigo.RecibirDanio();
+            jugador.Victoria();
             corazonUI.QuitarVidaEnemigo();
             if (enemigo.vidasActuales <= 0)
             {
@@ -179,7 +179,6 @@ public class ManejadorTeclas : MonoBehaviour
                 enemigo.Idle();
             
             }
-            
             jugador.Idle();
 
 
