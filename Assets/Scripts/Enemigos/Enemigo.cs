@@ -5,7 +5,7 @@ public class Champiñon : MonoBehaviour
     private Animator componenteAnimator;
     public AudioClip[] sonidos;
     public AudioSource audioSource;
-
+    public ParticleSystem hitParticles;
     public int vidasMaximas = 3;
     public int vidasActuales;
     public float tiempoReaccion = 1f;
@@ -45,6 +45,14 @@ public class Champiñon : MonoBehaviour
     {
         if (muerto) return;
         componenteAnimator.SetInteger("Estado", 3); 
+    }
+
+    public void MostrarParticulasDanio()
+    {
+        if (hitParticles != null)
+        {
+            hitParticles.Play();
+        }
     }
 
 }

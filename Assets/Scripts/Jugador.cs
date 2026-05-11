@@ -4,6 +4,7 @@ using UnityEngine;
 public class Jugador : MonoBehaviour
 {
     private Animator componenteAnimator;
+    public ParticleSystem hitParticles;
     public AudioClip[] sonidos;
     public AudioSource audioSource;
     private bool yaEnEspera = false;
@@ -62,6 +63,7 @@ public class Jugador : MonoBehaviour
 
     public void RecibirDanio()
     {
+
         corazonUI.QuitarVidaJugador();
         vidas--;
         audioSource.PlayOneShot(sonidos[4]);
@@ -91,5 +93,13 @@ public class Jugador : MonoBehaviour
         yield return new WaitForSeconds(4.5f);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+    }
+
+    public void MostrarParticulasDanio()
+    {
+        if (hitParticles != null)
+        {
+            hitParticles.Play();
+        }
     }
 }
