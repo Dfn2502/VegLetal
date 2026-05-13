@@ -4943,7 +4943,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: "Assembly-CSharp::Champi\xF1on"
   sonidos: []
   audioSource: {fileID: 0}
-  hitParticles: {fileID: 0}
+  hitParticles: {fileID: 691839045471940666}
   vidasMaximas: 4
   vidasActuales: 0
   tiempoReaccion: 0.4

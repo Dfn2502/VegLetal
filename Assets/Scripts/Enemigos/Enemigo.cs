@@ -32,6 +32,8 @@ public class Champiñon : MonoBehaviour
 
     public void RecibirDanio()
     {
+
+        MostrarParticulasDanio();
         if (muerto) return;
 
         vidasActuales--;

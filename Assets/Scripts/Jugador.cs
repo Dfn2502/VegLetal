@@ -36,7 +36,6 @@ public class Jugador : MonoBehaviour
 
         yaEnEspera = true;
 
-        Debug.Log("ESPERA REAL");
 
         audioSource.PlayOneShot(sonidos[3]);
         componenteAnimator.SetInteger("Estado", 2);
