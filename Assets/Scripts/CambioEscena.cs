@@ -11,7 +11,6 @@ public class CambioEscena : MonoBehaviour
     void Start()
     {
         transitionAnimator = GetComponentInChildren<Animator>();
-        transicion = GetComponent<Transicion>();
     }
 
     public void IrAJugar()

@@ -21,8 +21,8 @@ public class ManejadorTeclas : MonoBehaviour
     private List<GameObject> teclasCorrectas = new List<GameObject>();
 
     public Jugador jugador;
-    Vector3 posicion;
-    Vector3 posicionEnemigo;
+    public Vector3 posicion;
+    public Vector3 posicionEnemigo;
 
     public GameObject[] enemigosPrefab;
     private int indiceEnemigoActual = 0;
@@ -259,7 +259,7 @@ public class ManejadorTeclas : MonoBehaviour
         }
         
     }
-    void CargarSiguienteEnemigo()
+    public void CargarSiguienteEnemigo()
     {
         if (indiceEnemigoActual >= enemigosPrefab.Length)
         {
@@ -286,7 +286,7 @@ public class ManejadorTeclas : MonoBehaviour
         indiceEnemigoActual++;
     }
 
-    void LimpiarRonda()
+    public void LimpiarRonda()
     {
         foreach (GameObject t in teclasActivas)
         {
