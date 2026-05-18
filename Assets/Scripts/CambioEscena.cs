@@ -18,6 +18,7 @@ public class CambioEscena : MonoBehaviour
     {
         int indiceSiguienteEscena = SceneManager.GetActiveScene().buildIndex + 1;  
         StartCoroutine(transicion.CargarEscena(indiceSiguienteEscena));
+
     }
 
 } 
