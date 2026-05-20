@@ -8,7 +8,6 @@ public class ManejadorTutorial : ManejadorTeclas
 {
     [Header("Configuración del Tutorial UI")]
     public Text textoInstrucciones;
-    public string escenaSiguiente = "Nivel1";
 
     [Header("PNGs de Interfaz de Fin/Muerte")]
     public GameObject pngEnter; 
@@ -36,28 +35,29 @@ public class ManejadorTutorial : ManejadorTeclas
 
     void Update()
     {
-        // Interceptamos si el jugador murió en el tutorial para activar el PNG de Reintentar [R]
         if (jugador.estaMuerto && !esperandoR)
         {
-            StopAllCoroutines(); // Detiene el flujo del tutorial
-            base.LimpiarRonda(); // Limpia flechas de la pantalla
+            StopAllCoroutines(); 
+            base.LimpiarRonda(); 
             StartCoroutine(MostrarPantallaDerrotaTutorial());
         }
 
-        // Leer el Input del ENTER al final
         if (esperandoEnter && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)))
         {
             esperandoEnter = false;
             audioSource.PlayOneShot(sonidos[0]);
-            SceneManager.LoadScene(escenaSiguiente);
+            SceneManager.LoadScene("EscenaJuego");
         }
 
-        // Leer el Input de la R si moriste
         if (esperandoR && Input.GetKeyDown(KeyCode.R))
         {
             esperandoR = false;
             audioSource.PlayOneShot(sonidos[0]);
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        }
+        if(Input.GetKeyDown(KeyCode.S))
+            {
+            SceneManager.LoadScene("EscenaJuego");
         }
     }
 
@@ -69,13 +69,11 @@ public class ManejadorTutorial : ManejadorTeclas
             textoInstrucciones.text = "¡Bienvenido al Tutorial! El juego no avanzará hasta que presiones la tecla correcta.";
         yield return new WaitForSeconds(3.5f);
 
-        // --- PASO 1: Tecla Q ---
         teclasForzadasTutorial = new List<KeyCode> { KeyCode.Q };
         if (textoInstrucciones != null)
             textoInstrucciones.text = "¡Presiona la tecla Q para atacar! (Esperando acción...)";
         yield return StartCoroutine(RondaDelTutorialInfinita(enemigoActual));
 
-        // --- PASO 2: Tecla W ---
         if (!jugador.estaMuerto && enemigoActual != null)
         {
             teclasForzadasTutorial = new List<KeyCode> { KeyCode.W };
@@ -84,7 +82,6 @@ public class ManejadorTutorial : ManejadorTeclas
             yield return StartCoroutine(RondaDelTutorialInfinita(enemigoActual));
         }
 
-        // --- PASO 3: Combinación E + R ---
         if (!jugador.estaMuerto && enemigoActual != null)
         {
             teclasForzadasTutorial = new List<KeyCode> { KeyCode.E, KeyCode.R };
@@ -93,12 +90,11 @@ public class ManejadorTutorial : ManejadorTeclas
             yield return StartCoroutine(RondaDelTutorialInfinita(enemigoActual));
         }
 
-        // --- FIN DEL TUTORIAL (PANTALLA DE FELICIDADES + ENTER) ---
         if (!jugador.estaMuerto)
         {
             tutorialTerminado = true;
             if (textoInstrucciones != null)
-                textoInstrucciones.text = "¡FELICIDADES! Has completado el tutorial básico de combate.";
+                textoInstrucciones.text = "¡FELICIDADES! Has completado el tutorial de combate. Presiona Enter para comenzar el juego";
 
             yield return new WaitForSeconds(1.5f);
 

@@ -61,10 +61,9 @@ public class ControladorPausa : MonoBehaviour
         }
     }
 
-    // Método corregido para cargar tu escena "EscenaInicio" directamente
     public void IrAlMenu()
     {
-        Time.timeScale = 1f; // Restablecemos el tiempo para que el menú no inicie congelado
+        Time.timeScale = 1f; 
         SceneManager.LoadScene("EscenaInicio");
     }
 }
