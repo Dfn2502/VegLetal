@@ -1,22 +1,23 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using static System.TimeZoneInfo;
 
 public class Transicion : MonoBehaviour
 {
-    private Animator transitionAnimator;
+    public Animator transitionAnimator;
     public float transitionTime = 1f;
 
-    private void Start()
+    public void CambiarEscena(string nombreEscena)
     {
-        transitionAnimator = GetComponentInChildren<Animator>();
+        StartCoroutine(CargarEscena(nombreEscena));
     }
 
-    public IEnumerator CargarEscena(int indiceEscena)
+    IEnumerator CargarEscena(string nombreEscena)
     {
-        transitionAnimator.SetTrigger("StartTransition");
+        transitionAnimator.SetTrigger("FadeOut");
+
         yield return new WaitForSeconds(transitionTime);
-        SceneManager.LoadScene(indiceEscena);
+
+        SceneManager.LoadScene(nombreEscena);
     }
 }

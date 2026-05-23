@@ -4,12 +4,10 @@ using UnityEngine.SceneManagement;
 
 public class ControladorPausa : MonoBehaviour
 {
-    [Header("UI de Pausa")]
+    public CambioEscena cambioEscena;
     public GameObject panelPausa;
     public Text textoConsejos;
 
-    [Header("Base de Datos de Consejos")]
-    [TextArea(2, 4)]
     public string[] listaConsejos = {
         "Consejo: Mantén la calma, algunos combos requieren presionar dos teclas al mismo tiempo.",
         "Consejo: Observa el color de la señal, atacar antes de tiempo te dejará vulnerable.",
@@ -30,8 +28,11 @@ public class ControladorPausa : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (juegoPausado) Reanudar();
-            else Pausar();
+          
+
+                if (juegoPausado) Reanudar();
+                else Pausar();
+            
         }
     }
 
@@ -64,6 +65,6 @@ public class ControladorPausa : MonoBehaviour
     public void IrAlMenu()
     {
         Time.timeScale = 1f; 
-        SceneManager.LoadScene("EscenaInicio");
+        cambioEscena.CambiarEscena("EscenaInicio");
     }
 }

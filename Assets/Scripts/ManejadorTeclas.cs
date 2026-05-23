@@ -1,16 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 
 public class ManejadorTeclas : MonoBehaviour
 {
+    private bool yaGano = false;
+    public bool enPelea = false;
+    public bool enPantallaEspecial = false;
+
+    public int puntaje = 0;
+    public Text textoPuntaje;
+
+    private Coroutine blinkContinuar;
+    private Coroutine blinkSalir;
     public GameObject prefabBase;
     public Sprite[] spritesTeclas; 
     public Transform[] puntosAparicion;
     public float tiempoReaccion = 1.0f;
     public CorazonUI corazonUI;
 
+    public ControladorPausa controladorPausa;
+
+    public Image panelOscuro;
+    public CanvasGroup imgContinuar;
+    public CanvasGroup imgSalir;
+
+    public float velocidadParpadeo = 2f;
 
     public AudioClip[] sonidos;
     public AudioSource audioSource;
@@ -19,6 +36,8 @@ public class ManejadorTeclas : MonoBehaviour
 
     private List<KeyCode> teclasGanadoras = new List<KeyCode>();
     private List<GameObject> teclasCorrectas = new List<GameObject>();
+
+    public CambioEscena cambioEscena;
 
     public Jugador jugador;
     public Vector3 posicion;
@@ -38,12 +57,140 @@ public class ManejadorTeclas : MonoBehaviour
 
         jugador.transform.position = posicion;
 
-
+        panelOscuro.color = new Color(0, 0, 0, 0);
         CargarSiguienteEnemigo();
-
+        puntaje = 0;
+        ActualizarUI();
         corazonUI.MostrarCorazonesJugador(3);
+
+        StartCoroutine(IntroJuego());
+    }
+    void SumarPunto()
+    {
+        puntaje++;
+        ActualizarUI();
+    }
+    void ActualizarUI()
+    {
+        if (textoPuntaje != null)
+        {
+            textoPuntaje.text = "Score: " + puntaje;
+        }
+    }
+
+    IEnumerator IntroJuego()
+    {
+        enPantallaEspecial = true;
+
+        blinkContinuar = StartCoroutine(Parpadear(imgContinuar));
+        blinkSalir = StartCoroutine(Parpadear(imgSalir));
+
+        while (!Input.GetKeyDown(KeyCode.Return))
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("EscenaInicio");
+            }
+
+            yield return null;
+        }
+
+        StopCoroutine(blinkContinuar);
+        StopCoroutine(blinkSalir);
+
+        imgContinuar.alpha = 0;
+        imgSalir.alpha = 0;
+
+        enPantallaEspecial = false;
+        enPelea = true;
+
         StartCoroutine(CicloDeJuego());
     }
+    IEnumerator Parpadear(CanvasGroup canvas)
+    {
+        while (true)
+        {
+            while (canvas.alpha < 1f)
+            {
+                canvas.alpha += Time.deltaTime * velocidadParpadeo;
+                yield return null;
+            }
+
+            while (canvas.alpha > 0f)
+            {
+                canvas.alpha -= Time.deltaTime * velocidadParpadeo;
+                yield return null;
+            }
+        }
+    }
+    IEnumerator FadePanel(float inicio, float fin, float velocidad)
+    {
+        float t = 0f;
+
+        Color color = panelOscuro.color;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * velocidad;
+
+            float alpha = Mathf.Lerp(inicio, fin, t);
+
+            panelOscuro.color = new Color(
+                color.r,
+                color.g,
+                color.b,
+                alpha
+            );
+
+            yield return null;
+        }
+
+        panelOscuro.color = new Color(
+            color.r,
+            color.g,
+            color.b,
+            fin
+        );
+    }
+        IEnumerator MostrarPantallaContinuar()
+        {
+        enPantallaEspecial = true;
+
+        yield return StartCoroutine(FadePanel(0f, 0.6f, 2f));
+
+        blinkContinuar = StartCoroutine(Parpadear(imgContinuar));
+        blinkSalir = StartCoroutine(Parpadear(imgSalir));
+
+        bool continuar = false;
+
+        while (!continuar)
+        {
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                continuar = true;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                SceneManager.LoadScene("EscenaInicio");
+            }
+
+            yield return null;
+        }
+
+        StopCoroutine(blinkContinuar);
+        StopCoroutine(blinkSalir);
+
+        imgContinuar.alpha = 0;
+        imgSalir.alpha = 0;
+
+        yield return StartCoroutine(FadePanel(0.6f, 0f, 2f));
+
+        enPantallaEspecial = false;
+        enPelea = true;
+    }
+    
+
 
     IEnumerator MoverJugador(Vector3 destino, float velocidad)
     {
@@ -86,6 +233,7 @@ public class ManejadorTeclas : MonoBehaviour
 
     IEnumerator Ronda()
     {
+        if (yaGano) yield break;
 
         if (jugador.estaMuerto)
             yield break;
@@ -124,6 +272,12 @@ public class ManejadorTeclas : MonoBehaviour
                     if (!teclasPresionadas.Contains(tecla))
                     {
                         teclasPresionadas.Add(tecla);
+
+                        // ✔ Solo suma si esa tecla es correcta
+                        if (teclasGanadoras.Contains(tecla))
+                        {
+                            SumarPunto();
+                        }
                     }
                 }
             }
@@ -149,7 +303,7 @@ public class ManejadorTeclas : MonoBehaviour
             yield return null;
         }
 
-       
+
         posicion.x = 0.9f;
         posicionEnemigo.x = -1.033f;
         yield return StartCoroutine(MoverJugador(posicion, 20f));
@@ -165,7 +319,9 @@ public class ManejadorTeclas : MonoBehaviour
             corazonUI.QuitarVidaEnemigo();
             if (enemigo.vidasActuales <= 0)
             {
-                yield return new WaitForSeconds(4f);
+                yield return new WaitForSeconds(2f);
+
+                yield return StartCoroutine(MostrarPantallaContinuar());
 
                 Destroy(enemigo.gameObject);
 
@@ -259,11 +415,25 @@ public class ManejadorTeclas : MonoBehaviour
         }
         
     }
+    IEnumerator VictoriaFinal()
+    {
+        enPelea = false;
+        enPantallaEspecial = true;
+
+        yield return new WaitForSeconds(1.5f);
+
+        PlayerPrefs.SetInt("ScoreFinal", puntaje);
+        PlayerPrefs.Save();
+
+        cambioEscena.CambiarEscena("Victoria");
+    }
     public void CargarSiguienteEnemigo()
     {
-        if (indiceEnemigoActual >= enemigosPrefab.Length)
+        if (indiceEnemigoActual >= enemigosPrefab.Length && !yaGano)
         {
-            Debug.Log("GANASTE TODO");
+            yaGano = true;
+            StopAllCoroutines();
+            StartCoroutine(VictoriaFinal());
             return;
         }
 
@@ -277,7 +447,6 @@ public class ManejadorTeclas : MonoBehaviour
 
         if (enemigo == null)
         {
-            Debug.LogError("El prefab no tiene script Champiñon");
             return;
         }
 

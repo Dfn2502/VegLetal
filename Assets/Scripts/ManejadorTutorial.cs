@@ -9,6 +9,8 @@ public class ManejadorTutorial : ManejadorTeclas
     [Header("Configuración del Tutorial UI")]
     public Text textoInstrucciones;
 
+    public CambioEscena cambioEscena;
+
     [Header("PNGs de Interfaz de Fin/Muerte")]
     public GameObject pngEnter; 
     public GameObject pngR;    
@@ -46,7 +48,7 @@ public class ManejadorTutorial : ManejadorTeclas
         {
             esperandoEnter = false;
             audioSource.PlayOneShot(sonidos[0]);
-            SceneManager.LoadScene("EscenaJuego");
+            cambioEscena.CambiarEscena("EscenaJuego");
         }
 
         if (esperandoR && Input.GetKeyDown(KeyCode.R))
@@ -57,7 +59,7 @@ public class ManejadorTutorial : ManejadorTeclas
         }
         if(Input.GetKeyDown(KeyCode.S))
             {
-            SceneManager.LoadScene("EscenaJuego");
+            cambioEscena.CambiarEscena("EscenaJuego");
         }
     }
 

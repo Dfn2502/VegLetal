@@ -4,20 +4,22 @@ using UnityEngine.SceneManagement;
 
 public class CambioEscena : MonoBehaviour
 {
-    private Animator transitionAnimator;
-    public Transicion transicion;
-    public float transitionTime = 1f;
-
+    public Animator transitionAnimator;
     void Start()
     {
-        transitionAnimator = GetComponentInChildren<Animator>();
     }
-
-    public void IrAJugar()
+    private void Update()
     {
-        int indiceSiguienteEscena = SceneManager.GetActiveScene().buildIndex + 1;  
-        StartCoroutine(transicion.CargarEscena(indiceSiguienteEscena));
-
+        
     }
-
-} 
+    public void CambiarEscena(string nombreEscena)
+    {
+        StartCoroutine(SceneLoad(nombreEscena));
+    }
+    public IEnumerator SceneLoad(string nombreEscena)
+    {
+        transitionAnimator.SetTrigger("StartTransition");
+        yield return new WaitForSeconds(1.1f);
+        SceneManager.LoadScene(nombreEscena);
+    }
+}

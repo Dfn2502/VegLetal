@@ -9,6 +9,8 @@ public class Jugador : MonoBehaviour
     public AudioSource audioSource;
     private bool yaEnEspera = false;
     CorazonUI corazonUI;
+
+    public CambioEscena cambioEscena;
     public int vidas;
     public bool estaMuerto = false;
 
@@ -91,7 +93,7 @@ public class Jugador : MonoBehaviour
     {
         yield return new WaitForSeconds(4.5f);
 
-        UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver");
+        cambioEscena.CambiarEscena("GameOver");
     }
 
     public void MostrarParticulasDanio()
