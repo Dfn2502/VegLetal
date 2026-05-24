@@ -15,7 +15,7 @@ public class VictoriaUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter))
         {
-            CambioEscena.Instance.CambiarEscena("EscenaInicio");
+            CambioEscena.Instance.CambiarEscena("Creditos");
         }
     }
 }
