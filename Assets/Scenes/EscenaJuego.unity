@@ -970,7 +970,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -3, y: -106}
+  m_AnchoredPosition: {x: -10, y: -106}
   m_SizeDelta: {x: 314.986, y: 69.5372}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560818443
@@ -995,7 +995,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: b0ae64370e639f14a8671ed1af639b5a, type: 3}
-    m_FontSize: 44
+    m_FontSize: 29
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -1615,6 +1615,10 @@ PrefabInstance:
     - target: {fileID: 4538041169942511979, guid: 9eea443619682c94397316556d6efe8d, type: 3}
       propertyPath: m_Name
       value: TransicionCambio
+      objectReference: {fileID: 0}
+    - target: {fileID: 4538041169942511979, guid: 9eea443619682c94397316556d6efe8d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4653820012231694719, guid: 9eea443619682c94397316556d6efe8d, type: 3}
       propertyPath: transitionAnimator
@@ -6699,7 +6703,7 @@ RectTransform:
   m_GameObject: {fileID: 1225812796}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.90807, y: 0.90807, z: 0.90807}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 878721660}
@@ -7006,7 +7010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1395545145
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7092,7 +7096,7 @@ RectTransform:
   m_GameObject: {fileID: 1487728201}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.8515, y: 0.8515, z: 0.8515}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 878721660}

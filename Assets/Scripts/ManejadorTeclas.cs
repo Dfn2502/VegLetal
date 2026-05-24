@@ -65,7 +65,7 @@ public class ManejadorTeclas : MonoBehaviour
         StartCoroutine(IntroJuego());
     }
 
-    private void Update()
+    protected virtual void Update()
     {
 
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
@@ -438,9 +438,6 @@ public class ManejadorTeclas : MonoBehaviour
 
         yield return new WaitForSeconds(1.5f);
 
-        PlayerPrefs.SetInt("ScoreFinal", puntaje);
-        PlayerPrefs.Save();
-
         CambioEscena.Instance.CambiarEscena("Victoria");
     }
     public void CargarSiguienteEnemigo()
@@ -448,8 +445,12 @@ public class ManejadorTeclas : MonoBehaviour
         if (indiceEnemigoActual >= enemigosPrefab.Length && !yaGano)
         {
             yaGano = true;
-            StopAllCoroutines();
+
+            PlayerPrefs.SetInt("ScoreFinal", puntaje);
+            PlayerPrefs.Save();
+
             StartCoroutine(VictoriaFinal());
+
             return;
         }
 

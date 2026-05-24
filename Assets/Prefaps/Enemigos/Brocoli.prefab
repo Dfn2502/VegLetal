@@ -5094,6 +5094,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: brocoli_iddle
       objectReference: {fileID: 0}
+    - target: {fileID: 1160356261127867848, guid: 2fa28e88b54519048b28468713779aa4, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ae9a23eec93ecda429da339374f1db7c, type: 2}
     - target: {fileID: 7878350319992209165, guid: 2fa28e88b54519048b28468713779aa4, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5798

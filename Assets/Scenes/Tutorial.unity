@@ -290,6 +290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: TransicionCambio
       objectReference: {fileID: 0}
+    - target: {fileID: 4538041169942511979, guid: 9eea443619682c94397316556d6efe8d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7307834820332975436, guid: 9eea443619682c94397316556d6efe8d, type: 3}
       propertyPath: m_SizeDelta.x
       value: 1716.397
@@ -314,6 +318,11 @@ PrefabInstance:
 --- !u!224 &73105536 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2466308680305616453, guid: 9eea443619682c94397316556d6efe8d, type: 3}
+  m_PrefabInstance: {fileID: 73105535}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &102331472 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1180326616010918259, guid: 9eea443619682c94397316556d6efe8d, type: 3}
   m_PrefabInstance: {fileID: 73105535}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &133832655
@@ -654,7 +663,7 @@ MonoBehaviour:
   - {fileID: 1027588238}
   tiempoReaccion: 1
   corazonUI: {fileID: 1345604213}
-  controladorPausa: {fileID: 1092274452}
+  controladorPausa: {fileID: 0}
   panelOscuro: {fileID: 0}
   imgContinuar: {fileID: 0}
   imgSalir: {fileID: 0}
@@ -664,7 +673,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 1809d453a5ad3004a8a7699273c9a6ea, type: 3}
   - {fileID: 8300000, guid: ff2485b4c5470184e8be464ca698ab0b, type: 3}
   audioSource: {fileID: 1748614441}
-  cambioEscena: {fileID: 1302679923}
   jugador: {fileID: 1647857610}
   posicion: {x: 0, y: 0, z: 0}
   posicionEnemigo: {x: 0, y: 0, z: 0}
@@ -863,9 +871,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1092274452}
+      - m_Target: {fileID: 102331472}
         m_TargetAssemblyTypeName: ControladorPausa, Assembly-CSharp
-        m_MethodName: Reanudar
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1034,10 +1042,10 @@ RectTransform:
   - {fileID: 1817011270}
   - {fileID: 1792765300}
   - {fileID: 216705089}
-  - {fileID: 1117684077}
   - {fileID: 555006076}
   - {fileID: 882032959}
   - {fileID: 1791759732}
+  - {fileID: 1117684077}
   - {fileID: 73105536}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1239,16 +1247,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1092274452}
-        m_TargetAssemblyTypeName: ControladorPausa, Assembly-CSharp
-        m_MethodName: IrAlMenu
-        m_Mode: 1
+      - m_Target: {fileID: 1302679923}
+        m_TargetAssemblyTypeName: CambioEscena, Assembly-CSharp
+        m_MethodName: CambiarEscena
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: EscenaInicio
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &658182998
@@ -1562,7 +1570,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1092274453}
-  - component: {fileID: 1092274452}
+  - component: {fileID: 1092274454}
   m_Layer: 0
   m_Name: ControladorPausa
   m_TagString: Untagged
@@ -1570,30 +1578,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1092274452
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1092274451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64c1a39143106bf47831869cd9486b1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ControladorPausa
-  cambioEscena: {fileID: 1302679923}
-  panelPausa: {fileID: 1117684074}
-  textoConsejos: {fileID: 1684623568}
-  listaConsejos:
-  - "Consejo: Mant\xE9n la calma, algunos combos requieren presionar dos teclas al
-    mismo tiempo."
-  - "Consejo: Observa el color de la se\xF1al, atacar antes de tiempo te dejar\xE1
-    vulnerable."
-  - "Consejo: Cada enemigo tiene tiempos de reacci\xF3n diferentes. \xA1Aprende sus
-    patrones!"
-  - "Consejo: Si fallas una combinaci\xF3n, recibir\xE1s da\xF1o de inmediato."
-  - 'Consejo: Puedes pausar el juego en cualquier momento presionando la tecla ESC.'
 --- !u!4 &1092274453
 Transform:
   m_ObjectHideFlags: 0
@@ -1609,6 +1593,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1092274454
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1092274451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db19450fddc05df4d8674048d3f9fb48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ControladorPausaTutorial
+  panelPausa: {fileID: 1117684074}
+  textoConsejos: {fileID: 1684623568}
+  listaConsejos:
+  - 'Consejo: Presiona exactamente las teclas indicadas.'
+  - 'Consejo: Algunas rondas requieren dos teclas al mismo tiempo.'
+  - 'Consejo: El tutorial no avanza hasta acertar.'
+  - 'Consejo: Puedes pausar el tutorial con ESC.'
 --- !u!1 &1117684074
 GameObject:
   m_ObjectHideFlags: 0
@@ -1626,7 +1629,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1117684075
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1898,7 +1901,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4653820012231694719, guid: 9eea443619682c94397316556d6efe8d, type: 3}
   m_PrefabInstance: {fileID: 73105535}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 102331472}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 326891e6a6c592346a72333dec1dc299, type: 3}
@@ -2426,7 +2429,6 @@ MonoBehaviour:
   - {fileID: 8300000, guid: dc01ee542a9f9f44f8315f99fb867d14, type: 3}
   - {fileID: 8300000, guid: 3177d865ed89ad74e9a6df36dcf737cc, type: 3}
   audioSource: {fileID: 1392547033}
-  cambioEscena: {fileID: 1302679923}
   vidas: 0
   estaMuerto: 0
 --- !u!4 &1647857611
@@ -2761,7 +2763,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 218.49994, y: -88.99994}
+  m_AnchoredPosition: {x: 206, y: -88.99994}
   m_SizeDelta: {x: 317, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1817011269

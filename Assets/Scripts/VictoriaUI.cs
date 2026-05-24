@@ -9,6 +9,9 @@ public class VictoriaUI : MonoBehaviour
     void Start()
     {
         int score = PlayerPrefs.GetInt("ScoreFinal", 0);
+
+        Debug.Log("SCORE EN VICTORIA: " + score);
+
         textoScore.text = "Score Final: " + score;
     }
     void Update()

@@ -34,12 +34,14 @@ public class ManejadorTutorial : ManejadorTeclas
         StartCoroutine(FlujoDelTutorial());
     }
 
-    void Update()
+    protected override void Update()
     {
+        base.Update();
+
         if (jugador.estaMuerto && !esperandoR)
         {
-            StopAllCoroutines(); 
-            base.LimpiarRonda(); 
+            StopAllCoroutines();
+            base.LimpiarRonda();
             StartCoroutine(MostrarPantallaDerrotaTutorial());
         }
 
@@ -47,7 +49,7 @@ public class ManejadorTutorial : ManejadorTeclas
         {
             esperandoEnter = false;
             audioSource.PlayOneShot(sonidos[0]);
-            
+
             CambioEscena.Instance.CambiarEscena("EscenaJuego");
         }
 
@@ -55,10 +57,12 @@ public class ManejadorTutorial : ManejadorTeclas
         {
             esperandoR = false;
             audioSource.PlayOneShot(sonidos[0]);
+
             CambioEscena.Instance.CambiarEscena(SceneManager.GetActiveScene().name);
         }
-        if(Input.GetKeyDown(KeyCode.S))
-            {
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
             CambioEscena.Instance.CambiarEscena("EscenaJuego");
         }
     }
