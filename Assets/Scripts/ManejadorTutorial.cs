@@ -9,7 +9,6 @@ public class ManejadorTutorial : ManejadorTeclas
     [Header("Configuración del Tutorial UI")]
     public Text textoInstrucciones;
 
-    public CambioEscena cambioEscena;
 
     [Header("PNGs de Interfaz de Fin/Muerte")]
     public GameObject pngEnter; 

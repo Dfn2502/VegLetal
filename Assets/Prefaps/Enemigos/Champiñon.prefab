@@ -51,7 +51,7 @@ MonoBehaviour:
   hitParticles: {fileID: 1938194841930655240}
   vidasMaximas: 3
   vidasActuales: 0
-  tiempoReaccion: 0.6
+  tiempoReaccion: 0.4
   muerto: 0
 --- !u!1 &6103519790025507872
 GameObject:
