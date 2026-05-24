@@ -64,6 +64,23 @@ public class ManejadorTeclas : MonoBehaviour
 
         StartCoroutine(IntroJuego());
     }
+
+    private void Update()
+    {
+
+        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+
+        if (enPantallaEspecial)
+        {
+            CambioEscena.Instance.CambiarEscena("EscenaInicio");
+            return;
+        }
+
+        if (enPelea)
+        {
+            controladorPausa.Pausar();
+        }
+    }
     void SumarPunto()
     {
         puntaje++;
@@ -273,7 +290,6 @@ public class ManejadorTeclas : MonoBehaviour
                     {
                         teclasPresionadas.Add(tecla);
 
-                        // ✔ Solo suma si esa tecla es correcta
                         if (teclasGanadoras.Contains(tecla))
                         {
                             SumarPunto();

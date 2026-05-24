@@ -26,14 +26,6 @@ public class ControladorPausa : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-          
-
-                if (juegoPausado) Reanudar();
-                else Pausar();
-            
-        }
     }
 
     public void Reanudar()
