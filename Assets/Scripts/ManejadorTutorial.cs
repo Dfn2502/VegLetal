@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class ManejadorTutorial : ManejadorTeclas
 {
-    [Header("Configuración del Tutorial UI")]
     public Text textoInstrucciones;
 
 
@@ -48,18 +47,19 @@ public class ManejadorTutorial : ManejadorTeclas
         {
             esperandoEnter = false;
             audioSource.PlayOneShot(sonidos[0]);
-            cambioEscena.CambiarEscena("EscenaJuego");
+            
+            CambioEscena.Instance.CambiarEscena("EscenaJuego");
         }
 
         if (esperandoR && Input.GetKeyDown(KeyCode.R))
         {
             esperandoR = false;
             audioSource.PlayOneShot(sonidos[0]);
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+            CambioEscena.Instance.CambiarEscena(SceneManager.GetActiveScene().name);
         }
         if(Input.GetKeyDown(KeyCode.S))
             {
-            cambioEscena.CambiarEscena("EscenaJuego");
+            CambioEscena.Instance.CambiarEscena("EscenaJuego");
         }
     }
 

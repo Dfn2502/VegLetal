@@ -1036,9 +1036,9 @@ RectTransform:
   - {fileID: 216705089}
   - {fileID: 1117684077}
   - {fileID: 555006076}
-  - {fileID: 73105536}
   - {fileID: 882032959}
   - {fileID: 1791759732}
+  - {fileID: 73105536}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1582,7 +1582,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 64c1a39143106bf47831869cd9486b1d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ControladorPausa
-  cambioEscena: {fileID: 0}
+  cambioEscena: {fileID: 1302679923}
   panelPausa: {fileID: 1117684074}
   textoConsejos: {fileID: 1684623568}
   listaConsejos:
@@ -1932,7 +1932,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 4f852d76f08c7d149a8412ae765d0f40, type: 3}
+  m_Resource: {fileID: 8300000, guid: 5dae5f5dc4c229d44bcda93297770126, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -2424,8 +2424,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: ff2485b4c5470184e8be464ca698ab0b, type: 3}
   - {fileID: 8300000, guid: 149698253f4233d47914663cb5fe403e, type: 3}
   - {fileID: 8300000, guid: dc01ee542a9f9f44f8315f99fb867d14, type: 3}
+  - {fileID: 8300000, guid: 3177d865ed89ad74e9a6df36dcf737cc, type: 3}
   audioSource: {fileID: 1392547033}
-  cambioEscena: {fileID: 0}
+  cambioEscena: {fileID: 1302679923}
   vidas: 0
   estaMuerto: 0
 --- !u!4 &1647857611

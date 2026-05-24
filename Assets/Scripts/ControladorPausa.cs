@@ -65,6 +65,6 @@ public class ControladorPausa : MonoBehaviour
     public void IrAlMenu()
     {
         Time.timeScale = 1f; 
-        cambioEscena.CambiarEscena("EscenaInicio");
+        CambioEscena.Instance.CambiarEscena("EscenaInicio");
     }
 }

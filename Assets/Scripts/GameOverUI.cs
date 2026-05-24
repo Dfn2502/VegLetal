@@ -10,14 +10,14 @@ public class GameOverUI : MonoBehaviour
         int score = PlayerPrefs.GetInt("ScoreFinal", 0);
         textoScore.text = "Score: " + score;
     }
-
+    
     public void ReiniciarJuego()
     {
-        cambioEscena.CambiarEscena("EscenaJuego");
+        CambioEscena.Instance.CambiarEscena("EscenaJuego");
     }
 
     public void VolverAlMenu()
     {
-        cambioEscena.CambiarEscena("EscenaInicio");
+        CambioEscena.Instance.CambiarEscena("EscenaInicio");
     }
 }

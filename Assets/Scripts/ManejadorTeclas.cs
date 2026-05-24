@@ -37,7 +37,6 @@ public class ManejadorTeclas : MonoBehaviour
     private List<KeyCode> teclasGanadoras = new List<KeyCode>();
     private List<GameObject> teclasCorrectas = new List<GameObject>();
 
-    public CambioEscena cambioEscena;
 
     public Jugador jugador;
     public Vector3 posicion;
@@ -89,7 +88,7 @@ public class ManejadorTeclas : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("EscenaInicio");
+                CambioEscena.Instance.CambiarEscena("EscenaInicio");
             }
 
             yield return null;
@@ -172,7 +171,7 @@ public class ManejadorTeclas : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                SceneManager.LoadScene("EscenaInicio");
+                CambioEscena.Instance.CambiarEscena("EscenaInicio");
             }
 
             yield return null;
@@ -245,7 +244,8 @@ public class ManejadorTeclas : MonoBehaviour
         jugador.Transicion();
 
         yield return new WaitForSeconds(0.3f);
-        
+
+        audioSource.PlayOneShot(sonidos[2]);
         jugador.Espera();
 
         GenerarTeclas();
@@ -425,7 +425,7 @@ public class ManejadorTeclas : MonoBehaviour
         PlayerPrefs.SetInt("ScoreFinal", puntaje);
         PlayerPrefs.Save();
 
-        cambioEscena.CambiarEscena("Victoria");
+        CambioEscena.Instance.CambiarEscena("Victoria");
     }
     public void CargarSiguienteEnemigo()
     {

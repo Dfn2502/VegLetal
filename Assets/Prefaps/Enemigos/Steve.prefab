@@ -47,7 +47,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36513862edebefe47a2755e462b1409c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: "Assembly-CSharp::Champi\xF1on"
-  sonidos: []
+  sonidos:
+  - {fileID: 8300000, guid: a4625488020e22e4b91b46433e0bba61, type: 3}
+  - {fileID: 8300000, guid: 93be0d947c5117d4496624382f95fbde, type: 3}
+  - {fileID: 8300000, guid: 73cc398e3fd7fd34b847b0743adc0cd5, type: 3}
+  - {fileID: 8300000, guid: bcdb62828f1291345b3016efcc874f96, type: 3}
   audioSource: {fileID: 2140466793529241036}
   hitParticles: {fileID: 6764283755734853782}
   vidasMaximas: 2
@@ -4993,7 +4997,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

@@ -10,7 +10,6 @@ public class Jugador : MonoBehaviour
     private bool yaEnEspera = false;
     CorazonUI corazonUI;
 
-    public CambioEscena cambioEscena;
     public int vidas;
     public bool estaMuerto = false;
 
@@ -39,7 +38,6 @@ public class Jugador : MonoBehaviour
         yaEnEspera = true;
 
 
-        audioSource.PlayOneShot(sonidos[3]);
         componenteAnimator.SetInteger("Estado", 2);
 
         StartCoroutine(ResetEspera());
@@ -67,7 +65,7 @@ public class Jugador : MonoBehaviour
 
         corazonUI.QuitarVidaJugador();
         vidas--;
-        audioSource.PlayOneShot(sonidos[4]);
+        audioSource.PlayOneShot(sonidos[3]);
         componenteAnimator.SetInteger("Estado", 5);
         if (vidas <= 0)
         {
@@ -79,6 +77,7 @@ public class Jugador : MonoBehaviour
         if (estaMuerto) return;
         estaMuerto = true;
 
+        audioSource.PlayOneShot(sonidos[4]);
         audioSource.PlayOneShot(sonidos[5]);
         componenteAnimator.SetInteger("Estado", 6);
 
@@ -93,7 +92,7 @@ public class Jugador : MonoBehaviour
     {
         yield return new WaitForSeconds(3.5f);
         PlayerPrefs.SetInt("ScoreFinal", FindAnyObjectByType<ManejadorTeclas>().puntaje);
-        cambioEscena.CambiarEscena("GameOver");
+        CambioEscena.Instance.CambiarEscena("GameOver");
     }
 
     public void MostrarParticulasDanio()

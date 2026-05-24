@@ -19,6 +19,7 @@ public class Champiñon : MonoBehaviour
     public void Idle()
     {
         if(muerto) return;
+        audioSource.PlayOneShot(sonidos[3]);
         componenteAnimator.SetInteger("Estado", 0);
     }
 
@@ -26,6 +27,7 @@ public class Champiñon : MonoBehaviour
     public void Atacar()
     {
         if (muerto) return;
+        audioSource.PlayOneShot(sonidos[0]);
 
         componenteAnimator.SetInteger("Estado", 1);
     }
@@ -34,6 +36,7 @@ public class Champiñon : MonoBehaviour
     {
 
         MostrarParticulasDanio();
+        audioSource.PlayOneShot(sonidos[1]);
         if (muerto) return;
 
         vidasActuales--;

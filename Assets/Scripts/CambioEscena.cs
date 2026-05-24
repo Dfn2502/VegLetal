@@ -4,22 +4,37 @@ using UnityEngine.SceneManagement;
 
 public class CambioEscena : MonoBehaviour
 {
+    public static CambioEscena Instance;
+
     public Animator transitionAnimator;
-    void Start()
+    private string escenaDestino;
+
+    void Awake()
     {
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    private void Update()
-    {
-        
-    }
+
     public void CambiarEscena(string nombreEscena)
     {
-        StartCoroutine(SceneLoad(nombreEscena));
+        escenaDestino = nombreEscena;
+        StartCoroutine(SceneLoad());
     }
-    public IEnumerator SceneLoad(string nombreEscena)
+
+    public IEnumerator SceneLoad()
     {
-        transitionAnimator.SetTrigger("StartTransition");
+        if (transitionAnimator != null)
+            transitionAnimator.SetTrigger("StartTransition");
+
         yield return new WaitForSeconds(1.1f);
-        SceneManager.LoadScene(nombreEscena);
+
+        SceneManager.LoadScene(escenaDestino);
     }
 }

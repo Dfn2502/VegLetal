@@ -44,7 +44,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -176,7 +176,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36513862edebefe47a2755e462b1409c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: "Assembly-CSharp::Champi\xF1on"
-  sonidos: []
+  sonidos:
+  - {fileID: 8300000, guid: c26122289976ab54f9dda5974ae8d2a5, type: 3}
+  - {fileID: 8300000, guid: 48a22304f978e7042b076c748f616702, type: 3}
+  - {fileID: 8300000, guid: 0c495fa2523f1e04b86a40ee333f5725, type: 3}
+  - {fileID: 8300000, guid: ad3f2bf2deac1e14689d6926322ff5a4, type: 3}
   audioSource: {fileID: 6622729569034124846}
   hitParticles: {fileID: 1059149424272839191}
   vidasMaximas: 3
