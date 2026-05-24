@@ -21,6 +21,7 @@ public class ManejadorTutorial : ManejadorTeclas
 
     new void Start()
     {
+        PlayerPrefs.DeleteAll();
         posicion = new Vector3(-1.05f, -0.75f, -1.16f);
         posicionEnemigo = new Vector3(0.955f, -0.75f, -1.10186f);
         jugador.transform.position = posicion;

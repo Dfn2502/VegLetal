@@ -91,8 +91,8 @@ public class Jugador : MonoBehaviour
     }
     IEnumerator MorirYCambiarEscena()
     {
-        yield return new WaitForSeconds(4.5f);
-
+        yield return new WaitForSeconds(3.5f);
+        PlayerPrefs.SetInt("ScoreFinal", FindAnyObjectByType<ManejadorTeclas>().puntaje);
         cambioEscena.CambiarEscena("GameOver");
     }
 
