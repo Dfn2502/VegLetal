@@ -71,12 +71,6 @@ public class ControladorPausaTutorial : MonoBehaviour
         }
     }
 
-    public void ReiniciarTutorial()
-    {
-        Time.timeScale = 1f;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
     public void IrAlMenu()
     {
         Time.timeScale = 1f;
